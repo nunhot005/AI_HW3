@@ -1,0 +1,24 @@
+Cart Pole Agent -> agentคือตัวที่กระทำ และในที่นี้ก็เป็นstateด้วย
+สร้างด้วย Sigmoid init  ไว้ก่อน แล้วเวลาเริ่มรอบใหม่มันก็จะแทนค่าinitเดิม
+action = ความเป็นไปได้ทั้งหมดที่จะขยับต่อครั้ง
+Observation = ผ่านการสำรวจแล้ว (เลือกขยับตัวนั้น)
+neighbors = Listความเป็นไปได้รอบๆ โดยขยับที่ละ0.01 น่าจะเหมือนFrontier (ความต่างของneighborsคือจะไม่ได้มีการคำนวณคะแนนเหมือนsimulate)
+weight น่าจะเป็นถ้าน้ำหนักมันเท่ากัน2ฝั่งมันก็จะBalance
+hashเพื่อจับคู่ว่าถ้าฝั่งเราเท่านี้ อีกฝั่งจะเท่านั้น
+simulate = เป็นการลองทำactionจำนวนไม่เกิน1,500ครั้ง ให้กับagentsทุกตัว(ทำไมมีagent หลายตัววะ?) จำนวนครั้งจะหารtotal rewards เพราะงั้นยิ่งใช้ครั้งมาก คะแนนก็ยิ่งลดลงเยอะ
+ซึ่งจะเก็บreward ต่อครั้ง ไว้เป็นarrays ครั้งแรกคะแนนเท่านี้ ครั้งต่อไปก็คะแนนบลาๆๆ
+การทำจำลองน่าจะเป็นการวัดผลว่าทำแล้วคะแนนดีมั้ย ก่อนทำจริง เหมือนMarkus (Detroit become human)
+hillclimb = ทำทีละagent เราให้explore current node ตัวแรกก่อน (คือการวงไว้ว่าเรามาทางนี้nodeแล้วนั่นแหละ)
+_n คือการใช้simulateไปจำลองสถานการณ์ก่อน โดนยังไม่ได้เอาเข้าว่าเราexploreแล้วนะ (เหมือนfrontierที่ยังไม่ได้วงnode)
+neighborเท่ากับ_nได้เลย (frontierดีๆนี่เอง) สรุปมันคือneighbor ที่แทนด้วยตัวแปร _n ในhillclimb (Local variable)
+environment เป็นการคำนวณของsigmoid จากสภาพแวดล้อมปัจจุบัน
+best_i = argmax(rewards) -> ทางที่ดีที่สุดคือrewardเยอะสุด
+history เก็บarray best reward จากcurrent_r เพื่อที่จะเอาไปหาเทียบbest rewardตัวล่าสุด
+current_r ก็คือการsimulate ของnodeปัจจุบันไว้ทั้งหมด ไว้เรียกใช้simulateในhillclimb
+simulate_annealing = หาagentตัวสุดท้ายที่
+temperature = ยิ่งลด rangeการหาก็ยิ่งลด
+เลข5ตัวของhill climb ขึ้น/ลงทีละ0.01 เลย ให้action=5ตำแหน่งขึ้น/ลง = 10รูปแบบsuccession
+hillclimb_sideway
+1)current node rewardเจอตัวnode rewardน้อยกว่าตัวก่อนหน้า ให้return nodeก่อนหน้าทันที
+2)ถ้ามันเท่ากัน เก็บตัวที่เท่ากันไปเรื่อยๆ แล้วเริ่มนับถึง1,000 ให้return nodeค่านั้นทันที
+3)ถ้าเจอตัวที่มากกว่าระหว่างเริ่มนับ ก็ให้restartการนับเป็น0ทันที
