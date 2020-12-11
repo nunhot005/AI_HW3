@@ -1,5 +1,6 @@
 # AI_HW3
-local search algorithm
+local search algorithm  
+ITCS451_Artificial Intelligence  
 
 ## Description:
 
